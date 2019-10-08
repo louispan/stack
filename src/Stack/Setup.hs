@@ -567,7 +567,7 @@ installGhcBindist sopts getSetupInfo' installed = do
                     forM ghcBuilds $ \ghcBuild -> do
                         ghcPkgName <- parsePackageNameThrowing ("ghc" ++ ghcVariantSuffix ghcVariant ++ compilerBuildSuffix ghcBuild)
                         return (getInstalledTool installed ghcPkgName (isWanted . ACGhc), ghcBuild)
-                Ghcjs -> return []
+                Ghcjs -> return [(getInstalledGhcjs installed isWanted, CompilerBuildStandard)]
     let existingCompilers = concatMap
             (\(installedCompiler, compilerBuild) ->
                 case (installedCompiler, soptsForceReinstall sopts) of
@@ -1106,6 +1106,18 @@ getInstalledTool installed name goodVersion =
            goodVersion (pkgVersion pi')
             then Just pi'
             else Nothing
+    goodPackage _ = Nothing
+
+getInstalledGhcjs :: [Tool]
+                  -> (ActualCompiler -> Bool)
+                  -> Maybe Tool
+getInstalledGhcjs installed goodVersion =
+    if null available
+        then Nothing
+        else Just $ ToolGhcjs $ maximum available
+  where
+    available = mapMaybe goodPackage installed
+    goodPackage (ToolGhcjs cv) = if goodVersion cv then Just cv else Nothing
     goodPackage _ = Nothing
 
 downloadAndInstallTool :: HasTerm env
