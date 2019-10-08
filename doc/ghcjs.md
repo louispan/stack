@@ -12,7 +12,7 @@ You can also build existing stack projects which target GHC, and instead build
 them with GHCJS.  For example: `stack build --compiler ghcjs-0.2.0.9006020_ghc-7.10.3`
 
 There are advanced options for `stack setup`: `--ghcjs-boot-options` (one word at a time) and `--[no-]ghcjs-boot-clean`
-which will pass your settings down to the `ghcjs-boot`. You will need to know exactly what you are doing with them.  
+which will pass your settings down to the `ghcjs-boot`. You will need to know exactly what you are doing with them.
 
 Sidenote: If you receive a message like
 `The program 'ghcjs' version >=0.1 is required but the version of .../ghcjs could not be determined.`,
@@ -79,7 +79,7 @@ Older resolvers:
 | lts-7.5 || http://ghcjs.tolysz.org/ghc-8.0-2016-10-24-lts-7.5-9007005.tar.gz | 450e81028d7f1eb82a16bc4b0809f30730c3e173 |
 | lts-7.4 || http://ghcjs.tolysz.org/ghc-8.0-2016-10-22-lts-7.4-9007004.tar.gz | ed77b3c15fedbadad5ab0e0afe1bd42c0a8695b4 |
 | lts-7.3 || http://ghcjs.tolysz.org/ghc-8.0-2016-10-11-lts-7.3-9007003.tar.gz | 3196fd5eaed670416083cf3678396d02c50096de |
-| lts-7.2 || http://ghcjs.tolysz.org/ghc-8.0-2016-10-01-lts-7.2-9007002.tar.gz | a41ae415328e2b257d40724d13d1386390c26322 | 
+| lts-7.2 || http://ghcjs.tolysz.org/ghc-8.0-2016-10-01-lts-7.2-9007002.tar.gz | a41ae415328e2b257d40724d13d1386390c26322 |
 | lts-7.1 || http://ghcjs.tolysz.org/ghc-8.0-2016-09-26-lts-7.1-9007001-mem.tar.gz | e640724883238593e2d2f7f03991cb413ec0347b |
 | lts-6.25 | 0.2.0 | http://ghcjs.tolysz.org/lts-6.25-9006025.tar.gz | 3c87228579b55c05e227a7876682c2a7d4c9c007 |
 | lts-6.21 || http://ghcjs.tolysz.org/lts-6.21-9006021.tar.gz | 80b83f85dcec182093418e843979f4cee092fa85 |
@@ -118,11 +118,17 @@ In order to use a GHCJS installed on your PATH, just add the following to your `
 
 ```yaml
 compiler: ghcjs-0.2.0_ghc-7.10.2
+system-ghc: true
 ```
 
 (Or, `ghcjs-0.1.0_ghc-7.10.2` if you are working with an older version)
 
 This is particularly useful when you have built GHCJS from source.
+
+Alternatively, can you also run from the command line:
+```bash
+stack --system-ghc --compiler ghcjs-0.2.0_ghc-7.10.2 [other_stack_commands]
+```
 
 ## Project with both client and server
 
